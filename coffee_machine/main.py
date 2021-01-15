@@ -10,6 +10,7 @@ def make_coffee():
     cappuccino = ['cappuccino', 'capuccino', 'cappucino', 'cappuccinno']
 
     def check_inventory():
+        """Validate inventory availability before offering choices to clients"""
         name = []
         for key in coffees:
             name.append(key['name'])
@@ -26,7 +27,8 @@ def make_coffee():
     choices = check_inventory()
 
     def user_choice():
-        """Return the dictionary of the coffee chosen with qty for price, water, coffee and milk """
+        """Return the dictionary of the coffee chosen with qty for price, water, coffee and milk.
+        Also allow to turn machine off or print report of sales and inventory"""
         choice = input(f"What would you like? {', '.join(choices)}: ")
         if choice not in choices and choice != 'report' and choice != 'off':
             print("your choice is not available. Please choose again")
