@@ -3,7 +3,7 @@ from typing import Dict, List, Union
 coffees = [
     {
         'name': 'espresso',
-        'price': .50,
+        'price': 1.50,
         'water': 50,
         'coffee': 18,
         'milk': 0,
@@ -25,9 +25,9 @@ coffees = [
 
 inventory = {
     'profit': float(0),
-    'water': 300,
-    'coffee': 100,
-    'milk': 200,
+    'water': 1000,
+    'coffee': 500,
+    'milk': 800,
 }
 
 murphy = ["*cup don't drop*", ' ', ' ', ' ', ' ', 'nothing happens', ' ', ' ', '*overflowing*', ' ',]

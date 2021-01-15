@@ -18,13 +18,7 @@ def make_coffee():
         # print to validate the coffee_type works
         # checks for resource in inventory and will remove the choice that can't be done anymore
         for item in coffees:
-            if inventory['water'] < item['water']:
-                coffee_choices.remove(item['name'])
-                print(f"{item['name']} (not available)")
-            if inventory['coffee'] < item['coffee']:
-                coffee_choices.remove(item['name'])
-                print(f"{item['name']} (not available)")
-            if inventory['milk'] < item['milk']:
+            if inventory['water'] < item['water'] or inventory['coffee'] < item['coffee'] or inventory['milk'] < item['milk']:
                 coffee_choices.remove(item['name'])
                 print(f"{item['name']} (not available)")
         return coffee_choices
@@ -34,7 +28,7 @@ def make_coffee():
     def user_choice():
         """Return the dictionary of the coffee chosen with qty for price, water, coffee and milk """
         choice = input(f"What would you like? {', '.join(choices)}: ")
-        if choice not in choices or choice == 'report' or choice == 'off':
+        if choice not in choices and choice != 'report' and choice != 'off':
             print("your choice is not available. Please choose again")
             make_coffee()
         else:
@@ -98,7 +92,7 @@ def make_coffee():
             inventory["coffee"] -= coffee_2_make["coffee"]
             inventory["milk"] -= coffee_2_make["milk"]
             time.sleep(2)
-            make_coffee()
+    make_coffee()
 
 
 make_coffee()
