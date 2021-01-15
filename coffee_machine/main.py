@@ -1,11 +1,10 @@
 def make_coffee():
     from coffee_type import coffees
     from coffee_type import inventory
-    import os
-    def clear(): os.system('cls')
+    from coffee_type import murphy
+    import time
 
-# allow for spelling mistake from the user.
-    coffee_type = ['latte', 'espresso', 'cappuccino']
+    # allow for spelling mistake from the user.
     latte = ['latte', 'Latte']
     espresso = ['espresso', 'expresso', 'espreso']
     cappuccino = ['cappuccino', 'capuccino', 'cappucino', 'cappuccinno']
@@ -17,57 +16,53 @@ def make_coffee():
         # used to print the list of names available to clients
         coffee_choices = name
         # print to validate the coffee_type works
-        # checks for ressource in inventory and will remove the choice that can't be done anymore
+        # checks for resource in inventory and will remove the choice that can't be done anymore
         for item in coffees:
-
             if inventory['water'] < item['water']:
                 coffee_choices.remove(item['name'])
                 print(f"{item['name']} (not available)")
-
             if inventory['coffee'] < item['coffee']:
                 coffee_choices.remove(item['name'])
                 print(f"{item['name']} (not available)")
-
             if inventory['milk'] < item['milk']:
                 coffee_choices.remove(item['name'])
                 print(f"{item['name']} (not available)")
-
-        return ', '.join(coffee_choices)
+        return coffee_choices
 
     choices = check_inventory()
 
     def user_choice():
-       
         """Return the dictionary of the coffee chosen with qty for price, water, coffee and milk """
-        choice = input(f'What would you like? {choices}: ')
-        if choice in latte:
-            return coffees[1]
-        elif choice in espresso:
-            return coffees[0]
-        elif choice in cappuccino:
-            return coffees[2]
-        elif choice == 'report' or choice == 'off':
-            if choice == 'report':
-                report()
-            elif choice == 'off':
-                clear()
-                print("coffee machine off")
-            turn_on = input("Type 'on' to resume machine operations: ")
-            if turn_on == "on":
-                make_coffee()
-            else:
-                clear()
-                print('\nwrong command. You just broke the machine.\nPlease call tech support ')
-                exit(code='code 13')
-        else:
-            print('wrong choice, try again')
+        choice = input(f"What would you like? {', '.join(choices)}: ")
+        if choice not in choices or choice == 'report' or choice == 'off':
+            print("your choice is not available. Please choose again")
             make_coffee()
+        else:
+            if choice in latte:
+                return coffees[1]
+            elif choice in espresso:
+                return coffees[0]
+            elif choice in cappuccino:
+                return coffees[2]
+            elif choice == 'report' or choice == 'off':
+                if choice == 'report':
+                    report()
+                elif choice == 'off':
+                    print("coffee machine off")
+                turn_on = input("Type 'on' to resume machine operations: ")
+                if turn_on == "on":
+                    make_coffee()
+                else:
+                    print('\nwrong command. You just broke the machine.\nPlease call tech support ')
+                    exit(code='code 13')
+            else:
+                print('wrong choice, try again')
+                make_coffee()
 
     def report():
         """print the inventory (profit, water, coffee, milk) formatted"""
         for key, value in inventory.items():
             print(str(key) + ': ' + str(value))
-
 
     coffee_2_make = user_choice()
     accepted_coin = [.05, .10, .25]
@@ -91,12 +86,18 @@ def make_coffee():
             inventory["coffee"] -= coffee_2_make["coffee"]
             inventory["milk"] -= coffee_2_make["milk"]
         elif total_in == price:
-            print("Enjoy your coffee")
+            import random
+            lucky = random.choice(murphy)
+            print('\npercolating')
+            time.sleep(2)
+            print(lucky)
+            print("Enjoy your coffee\n\n")
             paying = False
             inventory['profit'] += price
             inventory["water"] -= coffee_2_make["water"]
             inventory["coffee"] -= coffee_2_make["coffee"]
             inventory["milk"] -= coffee_2_make["milk"]
+            time.sleep(2)
             make_coffee()
 
 

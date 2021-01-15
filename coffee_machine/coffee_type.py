@@ -30,3 +30,4 @@ inventory = {
     'milk': 200,
 }
 
+murphy = ["*cup don't drop*", ' ', ' ', ' ', ' ', 'nothing happens', ' ', ' ', '*overflowing*', ' ',]
